@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPASI CareKit — Panduan Menu Sehat &amp; Konsultasi MPASI Bersama Bidan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        sage: {
+                            50: '#F2F7F4',
+                            100: '#E1EDE6',
+                            200: '#C4DBCD',
+                            500: '#4A7C59',
+                            600: '#3D684A',
+                            700: '#31543C',
+                        },
+                        cream: {
+                            50: '#FAF8F5',
+                            100: '#F3EFEA',
+                        },
+                        terracotta: {
+                            50: '#FDF2EF',
+                            100: '#FADFD8',
+                            500: '#E07A5F',
+                            600: '#C8654B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #1F2937;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-animate {
+            animation: modalFadeIn 0.2s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-sage-200 selection:text-sage-700">
+
+    <!-- A. HEADER & NAVBAR -->
+    <header class="sticky top-0 z-40 bg-cream-50/95 backdrop-blur-md border-b border-sage-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <!-- Logo Kiri -->
+                <a href="#" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 rounded-xl bg-sage-500 flex items-center justify-center text-white shadow-sm group-hover:bg-sage-600 transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg sm:text-xl text-sage-700 tracking-tight block leading-none">MPASI CareKit</span>
+                        <span class="text-[10px] font-semibold text-sage-500 uppercase tracking-wider">Poltekkes Kemenkes Bandung</span>
+                    </div>
+                </a>
+
+                <!-- Menu Navigasi Desktop -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-600">
+                    <a href="#menu-mpasi" class="hover:text-sage-500 transition">Menu MPASI</a>
+                    <a href="#konseling" class="hover:text-sage-500 transition">Konseling</a>
+                    <a href="#paket-harga" class="hover:text-sage-500 transition">Paket Harga</a>
+                    <a href="#tentang-kami" class="hover:text-sage-500 transition">Tentang Kami</a>
+                </nav>
+
+                <!-- Tombol Mobile Hamburger -->
+                <div class="flex items-center gap-3 md:hidden">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-xl text-gray-600 hover:bg-sage-100 focus:outline-none" aria-label="Buka Menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-sage-100 px-4 pt-2 pb-4 space-y-1.5 shadow-sm">
+            <a href="#menu-mpasi" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-sage-50 hover:text-sage-600">Menu MPASI</a>
+            <a href="#konseling" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-sage-50 hover:text-sage-600">Konseling</a>
+            <a href="#paket-harga" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-sage-50 hover:text-sage-600">Paket Harga</a>
+            <a href="#tentang-kami" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-sage-50 hover:text-sage-600">Tentang Kami</a>
+        </div>
+    </header>
+
+    <!-- B. HERO SECTION -->
+    <section class="relative overflow-hidden pt-10 pb-16 sm:pt-16 sm:pb-24">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <!-- Kolom Teks Kiri -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-terracotta-50 text-terracotta-600 border border-terracotta-100 text-xs font-bold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-terracotta-500 animate-pulse"></span>
+                        Pendampingan MPASI Usia 6–23 Bulan
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight mb-5">
+                        Atur Jadwal &amp; Menu MPASI Si Kecil <span class="text-sage-500">Tanpa Drama.</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                        Panduan menu sehat harian (6–23 bulan) dan layanan sesi konseling langsung 1-on-1 bersama bidan untuk membantu Moms mengatasi kebingungan MPASI.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+                        <a href="#menu-mpasi" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-sage-500 hover:bg-sage-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-sage-500/20 transition transform hover:-translate-y-0.5">
+                            <span>Lihat Pilihan Menu</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                        <a href="#konseling" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-terracotta-500/20 transition transform hover:-translate-y-0.5">
+                            <span>Booking Konseling</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kolom Visual Kanan -->
+                <div class="lg:col-span-5">
+                    <div class="relative bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-sage-500/10 border border-sage-100">
+                        <div class="absolute -top-3.5 -right-2 sm:-right-3 bg-terracotta-500 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-md">
+                            Pedoman Kemenkes RI &amp; WHO
+                        </div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-sage-50 border border-sage-100 flex items-center justify-center text-3xl">
+                                🥣
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-lg">Rekomendasi Menu Hari Ini</h3>
+                                <p class="text-xs text-gray-500">Tekstur Lumat • Kaya Zat Besi</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 mb-6">
+                            <div class="p-3.5 rounded-2xl bg-cream-50 border border-sage-100 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-800">Bubur Hati Ayam Brokoli</p>
+                                    <p class="text-xs text-gray-500">Usia 6–8 Bulan • Tinggi Protein Hewani</p>
+                                </div>
+                                <span class="text-xs font-semibold text-sage-600 bg-sage-100 px-2.5 py-1 rounded-lg">20 mnt</span>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-cream-50 border border-sage-100 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-sm text-gray-800">Nasi Tim Ikan Kembung Bayam</p>
+                                    <p class="text-xs text-gray-500">Usia 9–11 Bulan • Sumber Omega-3</p>
+                                </div>
+                                <span class="text-xs font-semibold text-sage-600 bg-sage-100 px-2.5 py-1 rounded-lg">25 mnt</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                                <span class="text-xs font-medium text-gray-600">Bidan Clarista Siap Membantu</span>
+                            </div>
+                            <a href="#konseling" class="text-xs font-bold text-terracotta-500 hover:underline">Chat Sekarang →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- C. BANK MENU & RESEP MPASI INTERAKTIF -->
+    <section id="menu-mpasi" class="py-16 sm:py-20 bg-white border-y border-sage-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-terracotta-500">Bank Menu MPASI</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Resep Bergizi Sesuai Usia Si Kecil</h2>
+                <p class="text-sm sm:text-base text-gray-600">Pilih kategori usia di bawah untuk menyaring menu dengan tekstur dan kandungan gizi yang tepat.</p>
+            </div>
+
+            <!-- Tombol Filter Usia -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+                <button onclick="filterMenus('all', this)" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-sage-500 text-white shadow-sm">
+                    Semua
+                </button>
+                <button onclick="filterMenus('6-8', this)" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-cream-50 text-gray-600 hover:bg-sage-50 border border-sage-100">
+                    6–8 Bulan
+                </button>
+                <button onclick="filterMenus('9-11', this)" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-cream-50 text-gray-600 hover:bg-sage-50 border border-sage-100">
+                    9–11 Bulan
+                </button>
+                <button onclick="filterMenus('12-23', this)" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-cream-50 text-gray-600 hover:bg-sage-50 border border-sage-100">
+                    12–23 Bulan
+                </button>
+            </div>
+
+            <!-- Grid Kartu Menu -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Kartu dirender lewat JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- D. LAYANAN KONSELING 1-ON-1 (TELEKONSULTASI) -->
+    <section id="konseling" class="py-16 sm:py-20 bg-cream-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-sage-500">Telekonsultasi 1-on-1</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Layanan Konseling MPASI Bersama Bidan</h2>
+                <p class="text-sm sm:text-base text-gray-600">Isi formulir di bawah ini untuk menjadwalkan sesi konsultasi privat yang langsung terhubung ke WhatsApp.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg shadow-sage-500/5 border border-sage-100">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Profil Bidan/Konselor -->
+                    <div class="lg:col-span-5 flex flex-col items-center text-center p-6 rounded-2xl bg-sage-50 border border-sage-100">
+                        <div class="relative mb-4">
+                            <div class="w-24 h-24 rounded-full bg-sage-500 text-white flex items-center justify-center text-3xl font-bold shadow-md">
+                                C
+                            </div>
+                            <span class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full" title="Online"></span>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold mb-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span>
+                            Tersedia Hari Ini
+                        </span>
+                        <h3 class="font-bold text-lg text-gray-900">Clarista</h3>
+                        <p class="text-xs text-sage-600 font-semibold mb-3">Mahasiswa Kebidanan Poltekkes Kemenkes Bandung</p>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-5">
+                            Siap mendampingi Moms menyusun jadwal makan, menaikkan tekstur MPASI, mengatasi GTM, dan memantau riwayat alergi si kecil.
+                        </p>
+                        <div class="w-full pt-4 border-t border-sage-200/60 flex justify-around text-xs text-gray-600">
+                            <div>
+                                <p class="font-bold text-gray-900">30 Menit</p>
+                                <p>Durasi Sesi</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Via WhatsApp</p>
+                                <p>1-on-1 Privat</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulir Booking Interaktif -->
+                    <div class="lg:col-span-7">
+                        <h4 class="font-bold text-lg text-gray-900 mb-4">Formulir Booking Konseling</h4>
+                        <form id="counseling-form" onsubmit="handleWhatsAppBooking(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="nama-moms" class="block text-xs font-semibold text-gray-700 mb-1.5">Nama Moms</label>
+                                    <input type="text" id="nama-moms" required placeholder="Contoh: Moms Rina" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-sage-500 focus:ring-1 focus:ring-sage-500">
+                                </div>
+                                <div>
+                                    <label for="usia-bayi" class="block text-xs font-semibold text-gray-700 mb-1.5">Usia Bayi</label>
+                                    <input type="text" id="usia-bayi" required placeholder="Contoh: 8 Bulan" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-sage-500 focus:ring-1 focus:ring-sage-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="topik-keluhan" class="block text-xs font-semibold text-gray-700 mb-1.5">Topik / Keluhan</label>
+                                <select id="topik-keluhan" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-sage-500 bg-white">
+                                    <option value="GTM (Gerakan Tutup Mulut)">GTM (Gerakan Tutup Mulut)</option>
+                                    <option value="Alergi Makanan">Alergi Makanan</option>
+                                    <option value="Penentuan Tekstur & Porsi">Penentuan Tekstur &amp; Porsi</option>
+                                    <option value="Berat Badan Seret">Berat Badan Seret</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="jadwal-sesi" class="block text-xs font-semibold text-gray-700 mb-1.5">Pilihan Jadwal Sesi</label>
+                                <select id="jadwal-sesi" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-sage-500 bg-white">
+                                    <option value="Pagi (09.00 - 11.00 WIB)">Pagi (09.00 - 11.00 WIB)</option>
+                                    <option value="Siang (13.00 - 15.00 WIB)">Siang (13.00 - 15.00 WIB)</option>
+                                    <option value="Sore (16.00 - 18.00 WIB)">Sore (16.00 - 18.00 WIB)</option>
+                                    <option value="Malam (19.00 - 21.00 WIB)">Malam (19.00 - 21.00 WIB)</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-3.5 rounded-xl shadow-md shadow-terracotta-500/20 transition transform hover:-translate-y-0.5">
+                                <span>Kirim Booking via WhatsApp</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- E. PILIHAN PAKET HARGA (FREEMIUM) -->
+    <section id="paket-harga" class="py-16 sm:py-20 bg-white border-t border-sage-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-wider text-terracotta-500">Pilihan Paket Harga</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Mulai Gratis atau Pendampingan Penuh</h2>
+                <p class="text-sm sm:text-base text-gray-600">Pilih paket yang paling sesuai dengan kebutuhan Moms saat ini.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Kartu 1: Paket Basic -->
+                <div class="bg-cream-50 rounded-3xl p-8 border border-sage-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">Paket Basic</h3>
+                        <p class="text-sm text-gray-500 mt-1">Akses menu harian &amp; panduan dasar</p>
+                        <div class="my-6">
+                            <span class="text-4xl font-extrabold text-gray-900">Rp0</span>
+                            <span class="text-sm text-gray-500 font-semibold"> / GRATIS</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-700 mb-8">
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Akses penuh ke Bank Menu MPASI harian</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Panduan dasar tekstur &amp; porsi sesuai usia (6–23 bulan)</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Tips persiapan MPASI untuk Moms</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="selectPackage('Paket Basic (GRATIS - Rp0)')" class="w-full text-center bg-white hover:bg-sage-50 text-sage-700 border border-sage-200 font-semibold py-3.5 rounded-xl transition">
+                        Pilih Paket Basic
+                    </button>
+                </div>
+
+                <!-- Kartu 2: Paket CareKit Premium -->
+                <div class="relative bg-white rounded-3xl p-8 border-2 border-sage-500 shadow-xl shadow-sage-500/10 flex flex-col justify-between">
+                    <div class="absolute -top-3.5 right-6 bg-terracotta-500 text-white text-xs font-bold px-3.5 py-1 rounded-full shadow-sm tracking-wide">
+                        Paling Populer
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">Paket CareKit Premium</h3>
+                        <p class="text-sm text-gray-500 mt-1">Pendampingan penuh &amp; fleksibel bersama Bidan</p>
+                        <div class="my-6">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-sm text-gray-400 line-through font-medium">Rp150.000</span>
+                                <span class="text-[11px] font-bold bg-terracotta-50 text-terracotta-600 px-2 py-0.5 rounded-md">Hemat 47%</span>
+                            </div>
+                            <span class="text-4xl font-extrabold text-sage-600">Rp79.000</span>
+                            <span class="text-sm text-gray-500 font-medium"> / Bundling</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-700 mb-8">
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Semua fitur Paket Basic</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span><strong>3x Sesi Konseling Privat 1-on-1 fleksibel</strong> bersama Bidan (bisa dipakai kapan saja selama fase MPASI)</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>E-Book Panduan Mengatasi GTM</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Template Tracker Makanan &amp; Alergi (PDF siap cetak)</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Prioritas balas chat WhatsApp</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button onclick="selectPackage('Paket CareKit Premium (Rp79.000)')" class="w-full text-center bg-sage-500 hover:bg-sage-600 text-white font-semibold py-3.5 rounded-xl shadow-md transition transform hover:-translate-y-0.5">
+                        Pilih Paket Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- F. FOOTER & VALIDASI KESEHATAN -->
+    <footer id="tentang-kami" class="bg-sage-700 text-sage-100 py-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h4 class="font-bold text-lg text-white mb-2">MPASI CareKit</h4>
+            <p class="text-xs sm:text-sm text-sage-200 mb-5">
+                Materi panduan menu dan tekstur mengacu pada pedoman resmi <strong>Kemenkes RI &amp; WHO</strong>.
+            </p>
+            <div class="mb-6">
+                <a href="https://wa.me/6285860088011?text=Halo%20Bidan%20Clarista%2C%20saya%20ingin%20bertanya%20mengenai%20MPASI%20CareKit." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-md transition transform hover:-translate-y-0.5">
+                    <span>Hubungi WhatsApp (0858-6008-8011)</span>
+                </a>
+            </div>
+            <p class="text-xs sm:text-sm text-sage-100/90 max-w-2xl mx-auto leading-relaxed mb-5 bg-sage-600/50 p-4 rounded-2xl border border-sage-500/40">
+                <strong>Disclaimer:</strong> Layanan ini bersifat edukasi pendukung pengasuhan dan pencatatan MPASI, bukan pengganti diagnosis medis, tindakan klinis, atau penanganan darurat dokter spesialis anak.
+            </p>
+            <p class="text-xs text-sage-200 font-medium">
+                © 2026 MPASI CareKit — Poltekkes Kemenkes Bandung
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL POP-UP RESEP MPASI -->
+    <div id="recipe-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl modal-animate relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeRecipeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition" aria-label="Tutup">
+                ✕
+            </button>
+            <span id="modal-recipe-age" class="inline-block px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold mb-3"></span>
+            <h3 id="modal-recipe-title" class="text-2xl font-bold text-gray-900 mb-1.5"></h3>
+            <p id="modal-recipe-meta" class="text-xs text-gray-500 mb-4 pb-4 border-b border-gray-100"></p>
+            
+            <div class="mb-4 p-3 rounded-xl bg-sage-50 border border-sage-100 text-xs text-sage-700">
+                <strong>Kandungan Gizi:</strong> <span id="modal-recipe-nutrition"></span>
+            </div>
+
+            <div class="mb-5">
+                <h4 class="font-bold text-sm text-gray-900 mb-2">Bahan-bahan:</h4>
+                <ul id="modal-recipe-ingredients" class="list-disc list-inside text-sm text-gray-600 space-y-1.5"></ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm text-gray-900 mb-2">Langkah Membuat:</h4>
+                <ol id="modal-recipe-steps" class="list-decimal list-inside text-sm text-gray-600 space-y-2"></ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERAKTIF -->
+    <script>
+        const menus = [
+            {
+                id: 1,
+                name: "Bubur Hati Ayam Brokoli",
+                ageGroup: "6-8",
+                ageLabel: "6–8 Bulan",
+                texture: "Puree / Lumat",
+                time: "20 Menit",
+                emoji: "🥣",
+                nutrition: "Tinggi Zat Besi, Protein Hewani, Vitamin C & Folat",
+                desc: "Kaya zat besi untuk mencegah anemia dan mendukung pertumbuhan otak.",
+                ingredients: [
+                    "3 sdm nasi putih",
+                    "30 gr hati ayam (rebus & cincang halus)",
+                    "2 kuntum brokoli (kukus)",
+                    "1 sdt minyak kelapa / EVOO",
+                    "100 ml kaldu ayam kampung"
+                ],
+                steps: [
+                    "Masak nasi bersama kaldu ayam hingga menjadi bubur lembut.",
+                    "Masukkan hati ayam dan brokoli yang sudah dikukus, aduk rata.",
+                    "Blender atau saring sesuai tekstur lumat untuk usia 6–8 bulan.",
+                    "Tambahkan minyak kelapa sebelum disajikan hangat."
+                ]
+            },
+            {
+                id: 2,
+                name: "Puree Alpukat Pisang",
+                ageGroup: "6-8",
+                ageLabel: "6–8 Bulan",
+                texture: "Puree / Lumat",
+                time: "10 Menit",
+                emoji: "🥑",
+                nutrition: "Lemak Tak Jenuh Tunggal, Kalium, dan Serat Alami",
+                desc: "Kombinasi lemak sehat dan rasa manis alami yang lembut di pencernaan bayi.",
+                ingredients: [
+                    "1/2 buah alpukat mentega matang",
+                    "1/2 buah pisang ambon atau cavendish matang",
+                    "30 ml ASI atau susu formula hangat"
+                ],
+                steps: [
+                    "Kerok daging alpukat dan haluskan menggunakan saringan kawat.",
+                    "Lumatkan pisang hingga benar-benar halus.",
+                    "Campurkan keduanya dengan ASI/sufor hingga kekentalan pas, lalu sajikan."
+                ]
+            },
+            {
+                id: 3,
+                name: "Nasi Tim Ikan Kembung Bayam",
+                ageGroup: "9-11",
+                ageLabel: "9–11 Bulan",
+                texture: "Cincang Halus",
+                time: "25 Menit",
+                emoji: "🐟",
+                nutrition: "Omega-3 (DHA & EPA), Protein Tinggi, Kalsium & Zat Besi",
+                desc: "Sumber Omega-3 tinggi dari ikan lokal yang gurih alami untuk si kecil.",
+                ingredients: [
+                    "4 sdm beras putih",
+                    "40 gr fillet ikan kembung segar",
+                    "1 genggam daun bayam (iris halus)",
+                    "1 siung bawang putih (geprek)",
+                    "1 sdt unsalted butter"
+                ],
+                steps: [
+                    "Tumis bawang putih dengan butter, masukkan ikan kembung hingga matang.",
+                    "Masak beras dengan air secukupnya hingga menjadi nasi tim lembek.",
+                    "Masukkan tumisan ikan dan bayam, masak sebentar hingga bayam layu.",
+                    "Sajikan hangat dengan tekstur cincang halus."
+                ]
+            },
+            {
+                id: 4,
+                name: "Sup Krim Jagung Telur",
+                ageGroup: "9-11",
+                ageLabel: "9–11 Bulan",
+                texture: "Cincang Halus / Kental",
+                time: "20 Menit",
+                emoji: "🌽",
+                nutrition: "Karbohidrat Kompleks, Protein Lengkap, Vitamin A & B",
+                desc: "Sup hangat bertekstur lembut dan gurih yang cocok saat anak mulai belajar mengunyah.",
+                ingredients: [
+                    "50 gr jagung manis pipil (kukus & haluskan kasar)",
+                    "1 butir telur ayam (kocok lepas)",
+                    "150 ml kaldu ayam",
+                    "1 sdt unsalted butter",
+                    "1 sdm susu UHT plain (opsional)"
+                ],
+                steps: [
+                    "Didihkan kaldu ayam bersama jagung manis yang sudah dihaluskan kasar.",
+                    "Tuang kocokan telur perlahan sambil diaduk agar membentuk serabut lembut.",
+                    "Masukkan butter dan susu UHT, aduk hingga mengental dan matang sempurna."
+                ]
+            },
+            {
+                id: 5,
+                name: "Nasi Lembut Ayam Teriyaki",
+                ageGroup: "12-23",
+                ageLabel: "12–23 Bulan",
+                texture: "Makanan Keluarga",
+                time: "25 Menit",
+                emoji: "🍗",
+                nutrition: "Protein Hewani, Energi Kompleks, dan Zinc",
+                desc: "Menu gurih manis ramah balita untuk melatih kemampuan mengunyah makanan keluarga.",
+                ingredients: [
+                    "1 porsi nasi lembut",
+                    "50 gr dada ayam fillet (potong dadu kecil)",
+                    "1 sdt kecap manis & 1/2 sdt saus tiram ramah anak",
+                    "1 siung bawang putih (cincang)",
+                    "1 sdt minyak wijen"
+                ],
+                steps: [
+                    "Tumis bawang putih dengan minyak wijen hingga harum.",
+                    "Masukkan potongan ayam, masak hingga berubah warna.",
+                    "Tambahkan kecap, saus tiram, dan sedikit air, masak hingga bumbu meresap.",
+                    "Sajikan hangat bersama nasi lembut."
+                ]
+            },
+            {
+                id: 6,
+                name: "Bola-Bola Tahu Daging",
+                ageGroup: "12-23",
+                ageLabel: "12–23 Bulan",
+                texture: "Finger Food / Makanan Keluarga",
+                time: "25 Menit",
+                emoji: "🍡",
+                nutrition: "Protein Ganda (Hewani & Nabati), Zat Besi, dan Kalsium",
+                desc: "Praktis sebagai lauk maupun finger food untuk melatih kemandirian makan si kecil.",
+                ingredients: [
+                    "50 gr daging sapi giling",
+                    "1 buah tahu putih (haluskan)",
+                    "1 butir kuning telur",
+                    "1 sdm wortel parut",
+                    "1 siung bawang putih halus"
+                ],
+                steps: [
+                    "Campurkan daging giling, tahu, kuning telur, wortel, dan bawang putih.",
+                    "Bentuk adonan menjadi bola-bola kecil sesuai genggaman anak.",
+                    "Kukus selama 15–20 menit hingga matang sempurna, sajikan hangat."
+                ]
+            }
+        ];
+
+        function renderMenus(filter = 'all') {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? menus : menus.filter(m => m.ageGroup === filter);
+
+            filtered.forEach(menu => {
+                const card = document.createElement('div');
+                card.className = 'bg-cream-50 rounded-2xl p-6 border border-sage-100 hover:shadow-md hover:border-sage-200 transition flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-white border border-sage-100 flex items-center justify-center text-2xl shadow-sm">${menu.emoji}</span>
+                            <span class="px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold">${menu.ageLabel}</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-1.5">${menu.name}</h3>
+                        <p class="text-xs text-gray-600 mb-3 leading-relaxed">${menu.desc}</p>
+                        <div class="flex items-center gap-3 text-xs text-gray-500 mb-5">
+                            <span>🍽️ ${menu.texture}</span>
+                            <span>•</span>
+                            <span>⏱️ ${menu.time}</span>
+                        </div>
+                    </div>
+                    <button onclick="openRecipeModal(${menu.id})" class="w-full py-2.5 rounded-xl bg-white hover:bg-sage-500 hover:text-white text-sage-700 border border-sage-200 font-semibold text-sm transition">
+                        Lihat Resep
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterMenus(group, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-sage-500', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-cream-50', 'text-gray-600', 'border', 'border-sage-100');
+            });
+            btnElement.classList.remove('bg-cream-50', 'text-gray-600', 'border', 'border-sage-100');
+            btnElement.classList.add('bg-sage-500', 'text-white', 'shadow-sm');
+            renderMenus(group);
+        }
+
+        function openRecipeModal(id) {
+            const menu = menus.find(m => m.id === id);
+            if (!menu) return;
+
+            document.getElementById('modal-recipe-age').textContent = menu.ageLabel;
+            document.getElementById('modal-recipe-title').textContent = menu.name;
+            document.getElementById('modal-recipe-meta').textContent = `Tekstur: ${menu.texture} • Estimasi Masak: ${menu.time}`;
+            document.getElementById('modal-recipe-nutrition').textContent = menu.nutrition;
+
+            document.getElementById('modal-recipe-ingredients').innerHTML = menu.ingredients.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('modal-recipe-steps').innerHTML = menu.steps.map(step => `<li>${step}</li>`).join('');
+
+            const modal = document.getElementById('recipe-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeRecipeModal() {
+            const modal = document.getElementById('recipe-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleWhatsAppBooking(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama-moms').value.trim();
+            const usia = document.getElementById('usia-bayi').value.trim();
+            const topik = document.getElementById('topik-keluhan').value;
+            const jadwal = document.getElementById('jadwal-sesi').value;
+
+            const pesan = `Halo Bidan Clarista, saya ingin booking konseling MPASI CareKit:%0A%0A` +
+                          `• Nama Moms: ${encodeURIComponent(nama)}%0A` +
+                          `• Usia Bayi: ${encodeURIComponent(usia)}%0A` +
+                          `• Topik / Keluhan: ${encodeURIComponent(topik)}%0A` +
+                          `• Pilihan Jadwal Sesi: ${encodeURIComponent(jadwal)}%0A%0A` +
+                          `Mohon konfirmasi ketersediaan jadwalnya ya, terima kasih.`;
+
+            window.open(`https://wa.me/6285860088011?text=${pesan}`, '_blank', 'noopener,noreferrer');
+        }
+
+        function selectPackage(packageName) {
+            const pesan = `Halo Bidan Clarista, saya tertarik dan ingin memesan *${encodeURIComponent(packageName)}* di MPASI CareKit. Mohon informasi langkah selanjutnya ya, terima kasih.`;
+            window.open(`https://wa.me/6285860088011?text=${pesan}`, '_blank', 'noopener,noreferrer');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        window.onload = function() {
+            renderMenus('all');
+        };
+    </script>
+</body>
+</html>

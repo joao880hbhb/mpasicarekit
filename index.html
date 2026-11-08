@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPASI CareKit — Panduan Menu Sehat &amp; Konsultasi MPASI Bersama Bidan</title>
+<meta name="description" content="Panduan menu MPASI 6–23 bulan dan konseling 1-on-1 bersama bidan via WhatsApp.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['"Plus Jakarta Sans"','sans-serif']},colors:{
+sage:{50:'#F2F7F4',100:'#E1EDE6',200:'#C4DBCD',500:'#4A7C59',600:'#3D684A',700:'#31543C'},
+cream:{50:'#FAF8F5',100:'#F3EFEA'},
+terracotta:{50:'#FDF2EF',100:'#FADFD8',500:'#E07A5F',600:'#C8654B'}}}}}
+</script>
+<style>
+body{background:#FAF8F5;color:#1F2937}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(4deg)}}
+@keyframes steam{0%{opacity:0;transform:translateY(8px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-22px)}}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes wob{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.fl{animation:fl 6s ease-in-out infinite}.fl2{animation:fl 8s ease-in-out 1.5s infinite}
+.st{animation:steam 2.4s ease-in-out infinite}.st2{animation-delay:.8s}.st3{animation-delay:1.6s}
+.pop{animation:pop .25s ease-out}
+.wob{animation:wob 3s ease-in-out infinite}
+.card:hover .em{transform:scale(1.15) rotate(-6deg)}.em{transition:transform .3s}
+input[type=range]{accent-color:#4A7C59}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body class="font-sans antialiased selection:bg-sage-200 selection:text-sage-700 overflow-x-hidden">
+
+<div id="prog" class="fixed top-0 left-0 h-1 bg-terracotta-500 z-[60] w-0"></div>
+
+<header class="sticky top-0 z-40 bg-cream-50/90 backdrop-blur-md border-b border-sage-100">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 sm:h-20">
+<a href="#" class="flex items-center gap-2.5 group">
+<div class="w-10 h-10 rounded-xl bg-sage-500 flex items-center justify-center text-white shadow-sm group-hover:rotate-6 transition">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.3 6.3a4.5 4.5 0 000 6.4L12 20.4l7.7-7.7a4.5 4.5 0 00-6.4-6.4L12 7.6l-1.3-1.3a4.5 4.5 0 00-6.4 0z"/></svg></div>
+<div><span class="font-bold text-lg sm:text-xl text-sage-700 tracking-tight block leading-none">MPASI CareKit</span>
+<span class="text-[10px] font-semibold text-sage-500 uppercase tracking-wider">Poltekkes Kemenkes Bandung</span></div></a>
+<nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-600" id="nav">
+<a href="#menu-mpasi" class="hover:text-sage-500 transition">Menu MPASI</a><a href="#cek" class="hover:text-sage-500 transition">Cek Porsi</a>
+<a href="#konseling" class="hover:text-sage-500 transition">Konseling</a><a href="#paket-harga" class="hover:text-sage-500 transition">Paket Harga</a>
+<a href="#tentang-kami" class="hover:text-sage-500 transition">Tentang Kami</a></nav>
+<button onclick="mm()" class="md:hidden p-2 rounded-xl text-gray-600 hover:bg-sage-100" aria-label="Menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+</div>
+<div id="mm" class="hidden md:hidden bg-white border-b border-sage-100 px-4 pb-4 space-y-1 text-sm font-semibold text-gray-700">
+<a onclick="mm()" href="#menu-mpasi" class="block px-3 py-2.5 rounded-xl hover:bg-sage-50">Menu MPASI</a><a onclick="mm()" href="#cek" class="block px-3 py-2.5 rounded-xl hover:bg-sage-50">Cek Porsi</a>
+<a onclick="mm()" href="#konseling" class="block px-3 py-2.5 rounded-xl hover:bg-sage-50">Konseling</a><a onclick="mm()" href="#paket-harga" class="block px-3 py-2.5 rounded-xl hover:bg-sage-50">Paket Harga</a>
+<a onclick="mm()" href="#tentang-kami" class="block px-3 py-2.5 rounded-xl hover:bg-sage-50">Tentang Kami</a></div>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden pt-10 pb-20 sm:pt-16 sm:pb-28">
+<svg class="absolute -top-10 -left-16 w-72 text-sage-100 fl" viewBox="0 0 200 200"><path fill="currentColor" d="M44 -62C57 -52 67 -38 73 -22C79 -6 80 14 71 28C62 42 44 50 27 58C10 66 -7 74 -22 70C-37 66 -50 50 -58 34C-66 18 -69 2 -64 -12C-59 -26 -46 -38 -33 -48C-20 -58 -6 -66 8 -68C22 -70 31 -72 44 -62Z" transform="translate(100 100)"/></svg>
+<svg class="absolute bottom-0 right-0 w-80 text-terracotta-50 fl2" viewBox="0 0 200 200"><path fill="currentColor" d="M39 -55C50 -47 58 -34 63 -20C68 -5 70 12 62 24C54 36 37 43 22 52C7 61 -6 72 -20 70C-34 68 -48 53 -56 38C-64 23 -66 8 -62 -6C-58 -20 -48 -33 -36 -41C-24 -49 -10 -53 3 -57C16 -61 28 -63 39 -55Z" transform="translate(100 100)"/></svg>
+<div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 text-center lg:text-left rv">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-terracotta-50 text-terracotta-600 border border-terracotta-100 text-xs font-bold mb-6"><span class="w-2 h-2 rounded-full bg-terracotta-500 animate-pulse"></span>Pendampingan MPASI Usia 6–23 Bulan</div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight mb-5">Atur Jadwal &amp; Menu MPASI Si Kecil <span class="relative text-sage-500">Tanpa Drama.<svg class="absolute left-0 -bottom-2 w-full" viewBox="0 0 200 10" preserveAspectRatio="none"><path d="M2 7C50 1 150 1 198 6" stroke="#E07A5F" stroke-width="3" fill="none" stroke-linecap="round"/></svg></span></h1>
+<p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">Panduan menu sehat harian (6–23 bulan) dan layanan sesi konseling langsung 1-on-1 bersama bidan untuk membantu Moms mengatasi kebingungan MPASI.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+<a href="#menu-mpasi" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-sage-500 hover:bg-sage-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-sage-500/20 transition hover:-translate-y-0.5">Lihat Pilihan Menu ↓</a>
+<a href="#konseling" class="w-full sm:w-auto inline-flex justify-center bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-terracotta-500/20 transition hover:-translate-y-0.5">Booking Konseling</a></div>
+<div class="mt-8 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 text-xs font-semibold text-gray-500">
+<span>✅ Mengacu Kemenkes RI &amp; WHO</span><span>👩‍⚕️ Didampingi Bidan</span><span>📱 Konsultasi via WhatsApp</span></div>
+</div>
+<div class="lg:col-span-5 rv">
+<div class="relative">
+<div class="relative rounded-[2rem] overflow-hidden border-4 border-white shadow-xl shadow-sage-500/15 h-72 bg-gradient-to-br from-sage-100 to-terracotta-50">
+<img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=900" alt="Bayi lucu sedang makan" class="w-full h-full object-cover hover:scale-105 transition duration-700" onerror="this.remove()">
+<svg class="absolute inset-0 m-auto w-32 -z-0 opacity-90" viewBox="0 0 120 100" style="z-index:-1"></svg>
+<div class="absolute inset-0 bg-gradient-to-t from-sage-700/50 to-transparent"></div>
+<span class="absolute top-4 left-4 bg-white/90 text-sage-700 text-[11px] font-bold px-3 py-1 rounded-full">Pedoman Kemenkes RI &amp; WHO</span>
+</div>
+<!-- bowl svg -->
+<div class="absolute -top-8 -right-3 w-24 h-24 bg-white rounded-3xl shadow-lg flex items-center justify-center fl">
+<svg viewBox="0 0 80 80" class="w-16"><g stroke="#4A7C59" stroke-width="3" fill="none" stroke-linecap="round"><path class="st" d="M28 24q-4-6 0-10"/><path class="st st2" d="M40 24q-4-6 0-10"/><path class="st st3" d="M52 24q-4-6 0-10"/></g><path d="M12 36h56a28 24 0 01-56 0z" fill="#E07A5F"/><ellipse cx="40" cy="36" rx="28" ry="5" fill="#FADFD8"/><circle cx="34" cy="35" r="3" fill="#4A7C59"/><circle cx="46" cy="36" r="2.5" fill="#4A7C59"/><rect x="26" y="62" width="28" height="5" rx="2.5" fill="#C8654B"/></svg></div>
+<div class="relative -mt-10 mx-3 bg-white rounded-3xl p-5 shadow-xl shadow-sage-500/10 border border-sage-100">
+<div class="flex items-center justify-between mb-3"><div><h3 class="font-bold text-gray-900">Rekomendasi Menu Hari Ini</h3><p class="text-[11px] text-gray-500" id="today"></p></div><span class="text-2xl wob">🥣</span></div>
+<div id="hero-menus" class="space-y-2.5"></div>
+<div class="flex items-center justify-between pt-3 mt-3 border-t border-gray-100"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span><span class="text-xs font-medium text-gray-600">Bidan Clarista Siap Membantu</span></div><a href="#konseling" class="text-xs font-bold text-terracotta-500 hover:underline">Chat →</a></div>
+</div></div></div>
+</div>
+</section>
+
+<!-- MENU -->
+<section id="menu-mpasi" class="py-16 sm:py-20 bg-white border-y border-sage-100">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-10 rv"><span class="text-xs font-bold uppercase tracking-wider text-terracotta-500">Bank Menu MPASI</span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Resep Bergizi Sesuai Usia Si Kecil</h2>
+<p class="text-sm sm:text-base text-gray-600">Saring menu berdasarkan usia, cari bahan favorit, atau simpan resep yang paling cocok untuk si kecil.</p></div>
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8 rv">
+<div id="filters" class="flex flex-wrap justify-center gap-2"></div>
+<div class="relative w-full md:w-64"><input id="q" type="search" placeholder="Cari menu / bahan…" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-sage-200 text-sm bg-cream-50 focus:outline-none focus:border-sage-500 focus:ring-1 focus:ring-sage-500">
+<svg class="w-4 h-4 absolute left-3.5 top-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4-4"/></svg></div></div>
+<div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+<p id="empty" class="hidden text-center text-sm text-gray-500 py-10">Belum ada menu yang cocok. Coba kata kunci lain 🌿</p>
+</div></section>
+
+<!-- CEK PORSI -->
+<section id="cek" class="py-16 sm:py-20 bg-cream-50">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-10 rv"><span class="text-xs font-bold uppercase tracking-wider text-sage-500">Cek Cepat</span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Tekstur &amp; Porsi Sesuai Usia</h2>
+<p class="text-sm sm:text-base text-gray-600">Geser untuk melihat panduan umum frekuensi, porsi, dan tekstur makan si kecil.</p></div>
+<div class="bg-white rounded-3xl p-6 sm:p-10 border border-sage-100 shadow-lg shadow-sage-500/5 rv">
+<div class="flex items-end justify-between mb-2"><label for="age" class="text-sm font-bold text-gray-800">Usia bayi</label><span class="text-3xl font-extrabold text-sage-600"><span id="age-v">6</span> <span class="text-base font-semibold text-gray-500">bulan</span></span></div>
+<input id="age" type="range" min="6" max="23" value="6" class="w-full mb-6">
+<div id="cek-out" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+<p class="text-[11px] text-gray-500 mt-5">Panduan umum, setiap anak berbeda. Konsultasikan kondisi spesifik si kecil kepada bidan atau tenaga kesehatan.</p>
+</div></div></section>
+
+<!-- KONSELING -->
+<section id="konseling" class="py-16 sm:py-20 bg-white border-t border-sage-100">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-10 rv"><span class="text-xs font-bold uppercase tracking-wider text-sage-500">Telekonsultasi 1-on-1</span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Layanan Konseling MPASI Bersama Bidan</h2>
+<p class="text-sm sm:text-base text-gray-600">Isi formulir untuk menjadwalkan sesi privat yang langsung terhubung ke WhatsApp.</p></div>
+<div class="bg-cream-50 rounded-3xl p-6 sm:p-10 shadow-lg shadow-sage-500/5 border border-sage-100 rv">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-5 flex flex-col items-center text-center p-6 rounded-2xl bg-sage-50 border border-sage-100">
+<div class="relative mb-4"><div class="w-28 h-28 rounded-full bg-sage-500 text-white flex items-center justify-center text-4xl font-bold shadow-md overflow-hidden ring-4 ring-white">
+<span class="absolute">C</span><img src="https://images.unsplash.com/photo-1594824813566-788536790146?auto=format&fit=crop&q=80&w=300" alt="Bidan Clarista" class="relative w-full h-full object-cover" onerror="this.remove()"></div>
+<span class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></span></div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold mb-2"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping"></span>Tersedia Hari Ini</span>
+<h3 class="font-bold text-lg text-gray-900">Clarista</h3>
+<p class="text-xs text-sage-600 font-semibold mb-3">Mahasiswa Kebidanan Poltekkes Kemenkes Bandung</p>
+<p class="text-xs text-gray-600 leading-relaxed mb-5">Siap mendampingi Moms menyusun jadwal makan, menaikkan tekstur MPASI, mengatasi GTM, dan memantau riwayat alergi si kecil.</p>
+<div class="w-full pt-4 border-t border-sage-200/60 flex justify-around text-xs text-gray-600"><div><p class="font-bold text-gray-900">30 Menit</p><p>Durasi Sesi</p></div><div><p class="font-bold text-gray-900">Via WhatsApp</p><p>1-on-1 Privat</p></div></div>
+</div>
+<div class="lg:col-span-7">
+<h4 class="font-bold text-lg text-gray-900 mb-4">Formulir Booking Konseling</h4>
+<form onsubmit="book(event)" class="space-y-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div><label for="nama" class="block text-xs font-semibold text-gray-700 mb-1.5">Nama Moms</label><input id="nama" required placeholder="Contoh: Moms Rina" class="fi"></div>
+<div><label for="usia" class="block text-xs font-semibold text-gray-700 mb-1.5">Usia Bayi</label><input id="usia" required placeholder="Contoh: 8 Bulan" class="fi"></div></div>
+<div><span class="block text-xs font-semibold text-gray-700 mb-1.5">Topik / Keluhan</span><div id="topics" class="flex flex-wrap gap-2"></div></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div><label for="tgl" class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal Sesi</label><input id="tgl" type="date" required class="fi"></div>
+<div><label for="jam" class="block text-xs font-semibold text-gray-700 mb-1.5">Jadwal Sesi</label><select id="jam" class="fi bg-white"><option>Pagi (09.00 - 11.00 WIB)</option><option>Siang (13.00 - 15.00 WIB)</option><option>Sore (16.00 - 18.00 WIB)</option><option>Malam (19.00 - 21.00 WIB)</option></select></div></div>
+<button class="w-full inline-flex items-center justify-center gap-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-3.5 rounded-xl shadow-md shadow-terracotta-500/20 transition hover:-translate-y-0.5">Kirim Booking via WhatsApp →</button>
+</form></div></div></div></div></section>
+<style>.fi{width:100%;padding:.625rem 1rem;border-radius:.75rem;border:1px solid #e5e7eb;font-size:.875rem}.fi:focus{outline:none;border-color:#4A7C59;box-shadow:0 0 0 1px #4A7C59}</style>
+
+<!-- PAKET -->
+<section id="paket-harga" class="py-16 sm:py-20 bg-cream-50 border-t border-sage-100">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-12 rv"><span class="text-xs font-bold uppercase tracking-wider text-terracotta-500">Pilihan Paket Harga</span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 mb-3">Mulai Gratis atau Pendampingan Penuh</h2>
+<p class="text-sm sm:text-base text-gray-600">Pilih paket yang paling sesuai dengan kebutuhan Moms saat ini.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<div class="bg-white rounded-3xl p-8 border border-sage-100 flex flex-col justify-between hover:-translate-y-1 hover:shadow-lg transition rv"><div>
+<h3 class="text-xl font-bold text-gray-900">Paket Basic</h3><p class="text-sm text-gray-500 mt-1">Akses menu harian &amp; panduan dasar</p>
+<div class="my-6"><span class="text-4xl font-extrabold text-gray-900">Rp0</span><span class="text-sm text-gray-500 font-semibold"> / GRATIS</span></div>
+<ul id="l1" class="space-y-3 text-sm text-gray-700 mb-8"></ul></div>
+<button onclick="pkg('Paket Basic (GRATIS - Rp0)')" class="w-full bg-cream-50 hover:bg-sage-50 text-sage-700 border border-sage-200 font-semibold py-3.5 rounded-xl transition">Pilih Paket Basic</button></div>
+<div class="relative bg-white rounded-3xl p-8 border-2 border-sage-500 shadow-xl shadow-sage-500/10 flex flex-col justify-between hover:-translate-y-1 transition rv"><span class="absolute -top-3.5 right-6 bg-terracotta-500 text-white text-xs font-bold px-3.5 py-1 rounded-full shadow-sm wob">Paling Populer</span><div>
+<h3 class="text-xl font-bold text-gray-900">Paket CareKit Premium</h3><p class="text-sm text-gray-500 mt-1">Pendampingan penuh &amp; fleksibel bersama Bidan</p>
+<div class="my-6"><div class="flex items-center gap-2 mb-1"><span class="text-sm text-gray-400 line-through font-medium">Rp150.000</span><span class="text-[11px] font-bold bg-terracotta-50 text-terracotta-600 px-2 py-0.5 rounded-md">Hemat 47%</span></div><span class="text-4xl font-extrabold text-sage-600">Rp79.000</span><span class="text-sm text-gray-500 font-medium"> / Bundling</span></div>
+<ul id="l2" class="space-y-3 text-sm text-gray-700 mb-8"></ul></div>
+<button onclick="pkg('Paket CareKit Premium (Rp79.000)')" class="w-full bg-sage-500 hover:bg-sage-600 text-white font-semibold py-3.5 rounded-xl shadow-md transition hover:-translate-y-0.5">Pilih Paket Premium</button></div>
+</div></div></section>
+
+<footer id="tentang-kami" class="bg-sage-700 text-sage-100 py-12"><div class="max-w-5xl mx-auto px-4 text-center">
+<h4 class="font-bold text-lg text-white mb-2">MPASI CareKit</h4>
+<p class="text-xs sm:text-sm text-sage-200 mb-5">Materi panduan menu dan tekstur mengacu pada pedoman resmi <strong>Kemenkes RI &amp; WHO</strong>.</p>
+<a href="https://wa.me/6285860088011?text=Halo%20Bidan%20Clarista%2C%20saya%20ingin%20bertanya%20mengenai%20MPASI%20CareKit." target="_blank" rel="noopener noreferrer" class="inline-flex bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-md transition hover:-translate-y-0.5 mb-6">Hubungi WhatsApp (0858-6008-8011)</a>
+<p class="text-xs sm:text-sm text-sage-100/90 max-w-2xl mx-auto leading-relaxed mb-5 bg-sage-600/50 p-4 rounded-2xl border border-sage-500/40"><strong>Disclaimer:</strong> Layanan ini bersifat edukasi pendukung pengasuhan dan pencatatan MPASI, bukan pengganti diagnosis medis, tindakan klinis, atau penanganan darurat dokter spesialis anak.</p>
+<p class="text-xs text-sage-200 font-medium">© 2026 MPASI CareKit — Poltekkes Kemenkes Bandung</p></div></footer>
+
+<a href="https://wa.me/6285860088011?text=Halo%20Bidan%20Clarista%2C%20saya%20butuh%20bantuan%20MPASI" target="_blank" rel="noopener" aria-label="Chat WhatsApp" class="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-xl flex items-center justify-center hover:scale-110 transition"><span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span><svg class="w-7 h-7 relative" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.2 13.9c-.2.6-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.4.500c-.2.200-.3.300-.1.600.2.300.8 1.300 1.700 2 1.100 1 2.100 1.300 2.400 1.400.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.100 1.400z"/></svg></a>
+
+<div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4"><div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl pop relative max-h-[90vh] overflow-y-auto">
+<button onclick="closeM()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" aria-label="Tutup">✕</button>
+<span id="m-age" class="inline-block px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold mb-3"></span>
+<h3 id="m-title" class="text-2xl font-bold text-gray-900 mb-1.5 pr-8"></h3><p id="m-meta" class="text-xs text-gray-500 mb-4 pb-4 border-b border-gray-100"></p>
+<div class="mb-4 p-3 rounded-xl bg-sage-50 border border-sage-100 text-xs text-sage-700"><strong>Kandungan Gizi:</strong> <span id="m-nut"></span></div>
+<h4 class="font-bold text-sm text-gray-900 mb-2">Bahan-bahan <span class="font-normal text-gray-400 text-xs">(centang yang sudah siap)</span></h4><ul id="m-ing" class="space-y-1.5 mb-5 text-sm text-gray-600"></ul>
+<h4 class="font-bold text-sm text-gray-900 mb-2">Langkah Membuat:</h4><ol id="m-steps" class="list-decimal list-inside text-sm text-gray-600 space-y-2 mb-6"></ol>
+<a id="m-wa" target="_blank" rel="noopener" class="block text-center bg-terracotta-500 hover:bg-terracotta-600 text-white text-sm font-semibold py-3 rounded-xl transition">Tanya Bidan soal menu ini</a></div></div>
+<div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[70] px-5 py-2.5 rounded-full bg-sage-700 text-white text-xs font-semibold shadow-xl opacity-0 pointer-events-none transition-opacity"></div>
+
+<script>
+const WA='6285860088011',$=i=>document.getElementById(i);
+const menus=[
+{id:1,name:"Bubur Hati Ayam Brokoli",g:"6-8",age:"6–8 Bulan",tex:"Puree / Lumat",time:"20 Menit",e:"🥣",nut:"Tinggi Zat Besi, Protein Hewani, Vitamin C & Folat",d:"Kaya zat besi untuk mencegah anemia dan mendukung pertumbuhan otak.",ing:["3 sdm nasi putih","30 gr hati ayam (rebus & cincang halus)","2 kuntum brokoli (kukus)","1 sdt minyak kelapa / EVOO","100 ml kaldu ayam kampung"],st:["Masak nasi bersama kaldu ayam hingga menjadi bubur lembut.","Masukkan hati ayam dan brokoli yang sudah dikukus, aduk rata.","Blender atau saring sesuai tekstur lumat untuk usia 6–8 bulan.","Tambahkan minyak kelapa sebelum disajikan hangat."]},
+{id:2,name:"Puree Alpukat Pisang",g:"6-8",age:"6–8 Bulan",tex:"Puree / Lumat",time:"10 Menit",e:"🥑",nut:"Lemak Tak Jenuh Tunggal, Kalium, dan Serat Alami",d:"Kombinasi lemak sehat dan rasa manis alami yang lembut di pencernaan bayi.",ing:["1/2 buah alpukat mentega matang","1/2 buah pisang ambon atau cavendish matang","30 ml ASI atau susu formula hangat"],st:["Kerok daging alpukat dan haluskan menggunakan saringan kawat.","Lumatkan pisang hingga benar-benar halus.","Campurkan keduanya dengan ASI/sufor hingga kekentalan pas, lalu sajikan."]},
+{id:3,name:"Nasi Tim Ikan Kembung Bayam",g:"9-11",age:"9–11 Bulan",tex:"Cincang Halus",time:"25 Menit",e:"🐟",nut:"Omega-3 (DHA & EPA), Protein Tinggi, Kalsium & Zat Besi",d:"Sumber Omega-3 tinggi dari ikan lokal yang gurih alami untuk si kecil.",ing:["4 sdm beras putih","40 gr fillet ikan kembung segar","1 genggam daun bayam (iris halus)","1 siung bawang putih (geprek)","1 sdt unsalted butter"],st:["Tumis bawang putih dengan butter, masukkan ikan kembung hingga matang.","Masak beras dengan air secukupnya hingga menjadi nasi tim lembek.","Masukkan tumisan ikan dan bayam, masak sebentar hingga bayam layu.","Sajikan hangat dengan tekstur cincang halus."]},
+{id:4,name:"Sup Krim Jagung Telur",g:"9-11",age:"9–11 Bulan",tex:"Cincang Halus / Kental",time:"20 Menit",e:"🌽",nut:"Karbohidrat Kompleks, Protein Lengkap, Vitamin A & B",d:"Sup hangat bertekstur lembut dan gurih yang cocok saat anak mulai belajar mengunyah.",ing:["50 gr jagung manis pipil (kukus & haluskan kasar)","1 butir telur ayam (kocok lepas)","150 ml kaldu ayam","1 sdt unsalted butter","1 sdm susu UHT plain (opsional)"],st:["Didihkan kaldu ayam bersama jagung manis yang sudah dihaluskan kasar.","Tuang kocokan telur perlahan sambil diaduk agar membentuk serabut lembut.","Masukkan butter dan susu UHT, aduk hingga mengental dan matang sempurna."]},
+{id:5,name:"Nasi Lembut Ayam Teriyaki",g:"12-23",age:"12–23 Bulan",tex:"Makanan Keluarga",time:"25 Menit",e:"🍗",nut:"Protein Hewani, Energi Kompleks, dan Zinc",d:"Menu gurih manis ramah balita untuk melatih kemampuan mengunyah makanan keluarga.",ing:["1 porsi nasi lembut","50 gr dada ayam fillet (potong dadu kecil)","1 sdt kecap manis & 1/2 sdt saus tiram ramah anak","1 siung bawang putih (cincang)","1 sdt minyak wijen"],st:["Tumis bawang putih dengan minyak wijen hingga harum.","Masukkan potongan ayam, masak hingga berubah warna.","Tambahkan kecap, saus tiram, dan sedikit air, masak hingga bumbu meresap.","Sajikan hangat bersama nasi lembut."]},
+{id:6,name:"Bola-Bola Tahu Daging",g:"12-23",age:"12–23 Bulan",tex:"Finger Food / Makanan Keluarga",time:"25 Menit",e:"🍡",nut:"Protein Ganda (Hewani & Nabati), Zat Besi, dan Kalsium",d:"Praktis sebagai lauk maupun finger food untuk melatih kemandirian makan si kecil.",ing:["50 gr daging sapi giling","1 buah tahu putih (haluskan)","1 butir kuning telur","1 sdm wortel parut","1 siung bawang putih halus"],st:["Campurkan daging giling, tahu, kuning telur, wortel, dan bawang putih.","Bentuk adonan menjadi bola-bola kecil sesuai genggaman anak.","Kukus selama 15–20 menit hingga matang sempurna, sajikan hangat."]}];
+const CK='<svg class="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+const lst=(id,a)=>$(id).innerHTML=a.map(t=>`<li class="flex items-start gap-2.5">${CK}<span>${t}</span></li>`).join('');
+lst('l1',["Akses penuh ke Bank Menu MPASI harian","Panduan dasar tekstur & porsi sesuai usia (6–23 bulan)","Tips persiapan MPASI untuk Moms"]);
+lst('l2',["Semua fitur Paket Basic","<strong>3x Sesi Konseling Privat 1-on-1 fleksibel</strong> bersama Bidan (bisa dipakai kapan saja selama fase MPASI)","E-Book Panduan Mengatasi GTM","Template Tracker Makanan & Alergi (PDF siap cetak)","Prioritas balas chat WhatsApp"]);
+
+const toast=m=>{const t=$('toast');t.textContent=m;t.style.opacity=1;clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.opacity=0,2200)};
+const mm=()=>$('mm').classList.toggle('hidden');
+const wa=t=>window.open(`https://wa.me/${WA}?text=${encodeURIComponent(t)}`,'_blank','noopener,noreferrer');
+let fav=[];try{fav=JSON.parse(localStorage.getItem('mpasi_fav')||'[]')}catch(e){}
+let flt='all',qs='';
+
+// hero: menu harian
+const dn=Math.floor(Date.now()/864e5);
+$('today').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});
+$('hero-menus').innerHTML=[menus[dn%2],menus[2+dn%2]].map(m=>`<button onclick="openM(${m.id})" class="w-full text-left p-3 rounded-2xl bg-cream-50 border border-sage-100 flex justify-between items-center hover:border-sage-500 hover:shadow-sm transition"><div><p class="font-semibold text-sm text-gray-800">${m.e} ${m.name}</p><p class="text-[11px] text-gray-500">Usia ${m.age}</p></div><span class="text-xs font-semibold text-sage-600 bg-sage-100 px-2.5 py-1 rounded-lg">${m.time.replace('Menit','mnt')}</span></button>`).join('');
+
+// filter + render
+const FL=[['all','Semua'],['6-8','6–8 Bulan'],['9-11','9–11 Bulan'],['12-23','12–23 Bulan'],['fav','❤ Favorit']];
+function rF(){$('filters').innerHTML=FL.map(([k,l])=>`<button onclick="flt='${k}';rF();rM()" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition ${flt===k?'bg-sage-500 text-white shadow-sm':'bg-cream-50 text-gray-600 hover:bg-sage-50 border border-sage-100'}">${l}</button>`).join('')}
+function rM(){
+const l=menus.filter(m=>(flt==='all'||(flt==='fav'?fav.includes(m.id):m.g===flt))&&(m.name+m.ing.join(' ')+m.nut).toLowerCase().includes(qs));
+$('empty').classList.toggle('hidden',l.length>0);
+$('menu-grid').innerHTML=l.map(m=>`<div class="card bg-cream-50 rounded-2xl p-6 border border-sage-100 hover:shadow-lg hover:border-sage-200 hover:-translate-y-1 transition flex flex-col justify-between pop"><div>
+<div class="flex justify-between items-start mb-4"><span class="em w-14 h-14 rounded-2xl bg-white border border-sage-100 flex items-center justify-center text-3xl shadow-sm">${m.e}</span>
+<div class="flex items-center gap-2"><span class="px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold">${m.age}</span>
+<button onclick="tf(${m.id})" aria-label="Favorit" class="w-8 h-8 rounded-full bg-white border border-sage-100 flex items-center justify-center hover:scale-110 transition ${fav.includes(m.id)?'text-terracotta-500':'text-gray-300'}"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="${fav.includes(m.id)?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M4.3 6.3a4.5 4.5 0 000 6.4L12 20.4l7.7-7.7a4.5 4.5 0 00-6.4-6.4L12 7.6l-1.3-1.3a4.5 4.5 0 00-6.4 0z"/></svg></button></div></div>
+<h3 class="font-bold text-lg text-gray-900 mb-1.5">${m.name}</h3><p class="text-xs text-gray-600 mb-3 leading-relaxed">${m.d}</p>
+<div class="flex items-center gap-3 text-xs text-gray-500 mb-5"><span>🍽️ ${m.tex}</span><span>•</span><span>⏱️ ${m.time}</span></div></div>
+<button onclick="openM(${m.id})" class="w-full py-2.5 rounded-xl bg-white hover:bg-sage-500 hover:text-white text-sage-700 border border-sage-200 font-semibold text-sm transition">Lihat Resep</button></div>`).join('')}
+function tf(id){fav=fav.includes(id)?fav.filter(x=>x!==id):[...fav,id];try{localStorage.setItem('mpasi_fav',JSON.stringify(fav))}catch(e){}toast(fav.includes(id)?'Disimpan ke favorit ❤':'Dihapus dari favorit');rM()}
+$('q').oninput=e=>{qs=e.target.value.trim().toLowerCase();rM()};
+
+// modal
+let cur=null;
+function openM(id){const m=menus.find(x=>x.id===id);cur=m;
+$('m-age').textContent=m.age;$('m-title').textContent=m.name;$('m-meta').textContent=`Tekstur: ${m.tex} • Estimasi Masak: ${m.time}`;$('m-nut').textContent=m.nut;
+$('m-ing').innerHTML=m.ing.map((t,i)=>`<li><label class="flex items-start gap-2.5 cursor-pointer select-none"><input type="checkbox" class="mt-1 accent-[#4A7C59] peer" onchange="this.nextElementSibling.classList.toggle('line-through',this.checked)"><span>${t}</span></label></li>`).join('');
+$('m-steps').innerHTML=m.st.map(s=>`<li>${s}</li>`).join('');
+$('m-wa').href=`https://wa.me/${WA}?text=${encodeURIComponent('Halo Bidan Clarista, saya ingin bertanya soal menu "'+m.name+'" untuk bayi usia '+m.age+'.')}`;
+$('modal').classList.replace('hidden','flex');document.body.style.overflow='hidden'}
+function closeM(){$('modal').classList.replace('flex','hidden');document.body.style.overflow=''}
+$('modal').onclick=e=>{if(e.target.id==='modal')closeM()};
+addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+// cek porsi
+const G=[[6,8,'2–3x sehari','Mulai 2–3 sdm, naik bertahap hingga ½ mangkuk (125 ml)','Lumat / puree halus','🥣'],[9,11,'3–4x makan + 1–2x selingan','½ mangkuk (125 ml)','Cincang halus, finger food lunak','🥄'],[12,23,'3–4x makan + 1–2x selingan','¾ – 1 mangkuk (200–250 ml)','Makanan keluarga dicincang / dipotong kecil','🍽️']];
+function cek(){const a=+$('age').value,g=G.find(x=>a>=x[0]&&a<=x[1]);$('age-v').textContent=a;
+$('cek-out').innerHTML=[['Frekuensi',g[2],'⏰'],['Porsi',g[3],'🥄'],['Tekstur',g[4],g[5]]].map(([t,v,i])=>`<div class="p-4 rounded-2xl bg-sage-50 border border-sage-100 pop"><div class="text-2xl mb-1">${i}</div><p class="text-[11px] font-bold uppercase tracking-wider text-sage-500">${t}</p><p class="text-sm font-semibold text-gray-800 mt-1">${v}</p></div>`).join('')}
+$('age').oninput=cek;
+
+// booking
+const TP=["GTM (Gerakan Tutup Mulut)","Alergi Makanan","Penentuan Tekstur & Porsi","Berat Badan Seret","Lainnya"];let tp=TP[0];
+function rT(){$('topics').innerHTML=TP.map(t=>`<button type="button" onclick="tp='${t}';rT()" class="px-3.5 py-2 rounded-full text-xs font-semibold border transition ${tp===t?'bg-sage-500 text-white border-sage-500':'bg-white text-gray-600 border-gray-200 hover:border-sage-500'}">${t}</button>`).join('')}
+const td=new Date(),ts=`${td.getFullYear()}-${String(td.getMonth()+1).padStart(2,'0')}-${String(td.getDate()).padStart(2,'0')}`;$('tgl').min=ts;$('tgl').value=ts;
+function book(e){e.preventDefault();
+const tg=new Date($('tgl').value+'T00:00').toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+wa(`Halo Bidan Clarista, saya ingin booking konseling MPASI CareKit:\n\n• Nama Moms: ${$('nama').value.trim()}\n• Usia Bayi: ${$('usia').value.trim()}\n• Topik / Keluhan: ${tp}\n• Tanggal Sesi: ${tg}\n• Jadwal Sesi: ${$('jam').value}\n\nMohon konfirmasi ketersediaan jadwalnya ya, terima kasih.`);toast('Membuka WhatsApp… 💚')}
+const pkg=n=>wa(`Halo Bidan Clarista, saya tertarik dan ingin memesan *${n}* di MPASI CareKit. Mohon informasi langkah selanjutnya ya, terima kasih.`);
+
+// scroll: progress, reveal
+addEventListener('scroll',()=>{const h=document.documentElement;$('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+function reveal(){const io='IntersectionObserver'in window?new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12}):null;
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io?io.observe(el):el.classList.add('in')})}
+rF();rM();cek();rT();reveal();
+</script>
+</body>
+</html>
